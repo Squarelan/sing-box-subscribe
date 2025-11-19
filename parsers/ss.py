@@ -104,21 +104,21 @@ def parse(data):
           matcher = re.match(r'(.*?):(.*)', tool.b64Decode(param).decode('utf-8'))
           if matcher:
               node['method'] = matcher.group(1)
-              node['password'] = matcher.group(2)
+              node['password'] = urllib.parse.unquote(matcher.group(2))
           else:
               return None
         except:
           matcher = re.match(r'(.*?):(.*)', param)
           if matcher:
               node['method'] = matcher.group(1)
-              node['password'] = matcher.group(2)
+              node['password'] = urllib.parse.unquote(matcher.group(2))
           else:
               return None
     else:
         matcher = re.match(r'(.*?):(.*)@(.*):(.*)', tool.b64Decode(param).decode('utf-8'))
         if matcher:
             node['method'] = matcher.group(1)
-            node['password'] = matcher.group(2)
+            node['password'] = urllib.parse.unquote(matcher.group(2))
             node['server'] = matcher.group(3)
             node['server_port'] = matcher.group(4).split('&')[0]
         else:
